@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "analglib.h"
 
 #define IS_NULL_VECTOR(a, b)\
@@ -172,15 +173,53 @@ pmatrix transpose(pmatrix mx){
 	else return NULL;
 }
 
-//not implemented yet
 double getDeterminant(pmatrix mx){
 	if (mx != NULL && mx->rowCount == mx->colCount && mx->size != 0) {
 		MX_LOCAL_INIT(mx->size, mx->rowCount, mx->colCount)
 		for (size i = 0; i < res->rowCount; ++i)
-			for (size j = 0; j < res->colCount; ++i)
+			for (size j = 0; j < res->colCount; ++j)
 				res->cells[i][j] = mx->cells[i][j];
-		double det = 1.0;
-		return det;
+
+		if (res->size == 1) return res->cells[0][0];
+
+		double det = 1.0; int swapCount = 0;
+		for (size i = 0; i < res->rowCount; ++i) {
+			if (res->cells[i][i] == 0.0) {
+				for (size j = i + 1; j < res->rowCount; ++j) {
+					if (res->cells[j][i] != 0.0) {
+						swapLines(res, i, j);
+						++swapCount;
+					}
+				}
+			if (res->cells[i][i] == 0.0) return 0.0;
+			}
+
+			double divisor = res->cells[i][i];
+			for (size j = 0; j < res->colCount; ++j)
+				res->cells[i][j] /= divisor;
+			det *= divisor;
+
+			for (size j = i + 1; j < res->rowCount; ++j) {
+				double mult = res->cells[j][i];
+				for (size k = 0; k < res->colCount; ++k)
+					res->cells[j][k] -= res->cells[i][k] * mult;
+			}
+		}
+		return det * pow(-1.0, swapCount);
 	}
 	else return -1.0;
+}
+
+bool equal(pmatrix a, pmatrix b){
+	if (a == NULL || b == NULL || a->size == 0 || b->size == 0) return false;
+	for (size i = 0; i < a->rowCount; ++i)
+		for (size j = 0; j < a->colCount; ++j)
+			if (a->cells[i][j] != b->cells[i][j]) return false;
+	return true;
+}
+
+void swapLines(pmatrix mx, int i, int j){
+	vecdata tmp = mx->cells[i];
+	mx->cells[i] = mx->cells[j];
+	mx->cells[j] = tmp;
 }
