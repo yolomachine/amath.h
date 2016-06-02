@@ -5,9 +5,9 @@ typedef pvector (*__vectorOperation)(pvector, pvector);
 typedef pvector (*__mulVector)(pvector, double);
 typedef pvector (*__crossVectors)(pvector, pvector);
 typedef double  (*__dotVectors)(pvector, pvector);
-typedef void	  (*__destroyVector)(pvector, pvector*);
+typedef void    (*__destroyVector)(pvector, pvector*);
 typedef vecdata (*__getVecData)(pvector);
-typedef int		  (*__getVecSize)(pvector);
+typedef int     (*__getVecSize)(pvector);
 
 typedef pmatrix (*__createMatrix)(mxdata, uint, uint);
 typedef pmatrix (*__matrixOperation)(pmatrix, pmatrix);
