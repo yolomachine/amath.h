@@ -19,7 +19,8 @@ typedef pmatrix (*__getMxData)(pmatrix);
 typedef int     (*__getMxSize)(pmatrix);
 
 __createVector    _createVector;
-__vectorOperation _vectorOperation;
+__vectorOperation _addVector;
+__vectorOperation _subVector;
 __mulVector       _mulVector;
 __crossVectors    _crossVectors;
 __dotVectors      _dotVectors;
@@ -28,7 +29,8 @@ __getVecData      _getVecData;
 __getVecSize      _getVecSize;
 
 __createMatrix    _createMatrix;
-__matrixOperation _matrixOperation;
+__matrixOperation _addMatrix;
+__matrixOperation _subMatrix;
 __mulMatrix       _mulMatrix;
 __transpose       _transpose;
 __getDeterminant  _getDeterminant;
