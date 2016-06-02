@@ -22,7 +22,7 @@ __createVector    _createVector;
 __vectorOperation _vectorOperation;
 __mulVector       _mulVector;
 __crossVectors    _crossVectors;
-__dotVectors		  _dotVectors;
+__dotVectors      _dotVectors;
 __destroyVector   _destroyVector;
 __getVecData      _getVecData;
 __getVecSize      _getVecSize;
